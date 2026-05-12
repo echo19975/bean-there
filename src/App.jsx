@@ -277,10 +277,10 @@ function AddBean({onSave,onBack,initial}){
         )}
       </div>
 
-      <Row mt={16}>
-        <F label="Bag Size" flex="0 0 200px" minW={160}>
+      <div style={{display:'flex',gap:14,marginTop:16,flexWrap:'nowrap'}}>
+        <F label="Bag Size" flex="1" minW={0}>
           <div style={{display:'flex'}}>
-            <input type="number" step="1" min="0" className="i" value={f.bagSize} onChange={e=>s('bagSize',e.target.value)} placeholder="250" style={{borderRadius:'3px 0 0 3px',flex:1,borderRight:'none'}}/>
+            <input type="number" step="1" min="0" className="i" value={f.bagSize} onChange={e=>s('bagSize',e.target.value)} placeholder="250" style={{borderRadius:'3px 0 0 3px',flex:1,borderRight:'none',minWidth:0}}/>
             <select value={f.bagUnit} onChange={e=>s('bagUnit',e.target.value)}
               style={{background:S2,border:`1px solid ${BD}`,borderLeft:'none',color:MT,fontFamily:'Jost',fontWeight:300,fontSize:12,borderRadius:'0 3px 3px 0',padding:'0 10px',cursor:'pointer',outline:'none',flexShrink:0}}>
               <option value="g">g</option>
@@ -289,13 +289,13 @@ function AddBean({onSave,onBack,initial}){
             </select>
           </div>
         </F>
-        <F label="Price ($)" flex="0 0 140px" minW={120}>
+        <F label="Price ($)" flex="1" minW={0}>
           <div style={{position:'relative'}}>
             <span style={{position:'absolute',left:12,top:'50%',transform:'translateY(-50%)',fontFamily:'Jost',fontWeight:300,fontSize:14,color:DIM,pointerEvents:'none'}}>$</span>
             <input type="number" step="0.5" min="0" className="i" value={f.price} onChange={e=>s('price',e.target.value)} placeholder="0.00" style={{paddingLeft:24}}/>
           </div>
         </F>
-      </Row>
+      </div>
 
       {/* Advanced */}
       <div style={{marginTop:24}}>
@@ -536,29 +536,42 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
 
       {/* ── GRIND ── */}
       <Sec title="Grind"/>
-      <Row>
-        <F label="Grinder"><AC value={f.grind.grinder} onChange={v=>set('grind.grinder',v)} opts={grinders} placeholder="e.g. Comandante"/></F>
-        <F label="Grind Setting" flex="0 0 155px"><input className="i" value={f.grind.grindSetting} onChange={e=>set('grind.grindSetting',e.target.value)} placeholder="e.g. 18 clicks"/></F>
-      </Row>
-      <Row mt={14} gap={14}>
-        <F label="Dose (g)" flex="0 0 110px"><input type="number" step="0.1" className="i" value={f.grind.dose} onChange={e=>set('grind.dose',e.target.value)} placeholder="18.0"/></F>
-        {beanAge!==null&&<F label="Bean Age at Shot" flex="0 0 150px" minW={120}>
-          <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
-        </F>}
-      </Row>
+      {mob ? (
+        <>
+          <Row>
+            <F label="Grinder"><AC value={f.grind.grinder} onChange={v=>set('grind.grinder',v)} opts={grinders} placeholder="e.g. Comandante"/></F>
+            <F label="Grind Setting" flex="0 0 140px"><input className="i" value={f.grind.grindSetting} onChange={e=>set('grind.grindSetting',e.target.value)} placeholder="e.g. 18 clicks"/></F>
+          </Row>
+          <Row mt={14} gap={14}>
+            <F label="Dose (g)" flex="0 0 110px"><input type="number" step="0.1" className="i" value={f.grind.dose} onChange={e=>set('grind.dose',e.target.value)} placeholder="18.0"/></F>
+            {beanAge!==null&&<F label="Bean Age at Shot" minW={120}>
+              <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
+            </F>}
+          </Row>
+        </>
+      ) : (
+        <Row gap={14}>
+          <F label="Grinder"><AC value={f.grind.grinder} onChange={v=>set('grind.grinder',v)} opts={grinders} placeholder="e.g. Comandante"/></F>
+          <F label="Grind Setting" flex="0 0 155px"><input className="i" value={f.grind.grindSetting} onChange={e=>set('grind.grindSetting',e.target.value)} placeholder="e.g. 18 clicks"/></F>
+          <F label="Dose (g)" flex="0 0 110px"><input type="number" step="0.1" className="i" value={f.grind.dose} onChange={e=>set('grind.dose',e.target.value)} placeholder="18.0"/></F>
+          {beanAge!==null&&<F label="Bean Age at Shot" flex="0 0 180px" minW={0}>
+            <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
+          </F>}
+        </Row>
+      )}
 
       {/* ── BASKET PREP ── */}
       <Sec title="Basket Prep"/>
       <Row>
         <F label="Basket"><input className="i" value={f.basket.basket} onChange={e=>set('basket.basket',e.target.value)} placeholder="e.g. VST 18g, IMS 20g"/></F>
       </Row>
-      <Row mt={10} gap={20} sx={{alignItems:'center'}}>
+      <div style={{display:'flex',flexDirection:mob?'column':'row',gap:14,marginTop:16}}>
+        <F label="Distribution"><Tog opts={['WDT','Blind Shaker',"Stockfleth's",'Palm']} val={f.basket.distribution} onChange={v=>set('basket.distribution',v)}/></F>
+        <F label="Paper Filter"><Tog opts={['Top','Bottom','Both','None']} val={f.basket.paperFilter} onChange={v=>set('basket.paperFilter',v)}/></F>
+      </div>
+      <Row mt={12} gap={20} sx={{alignItems:'center'}}>
         <Chk val={f.basket.puckScreen} onChange={()=>set('basket.puckScreen',!f.basket.puckScreen)} label="Puck screen"/>
       </Row>
-      <div style={{display:'flex',flexDirection:mob?'column':'row',gap:14,marginTop:16}}>
-        <F label="Paper Filter"><Tog opts={['Top','Bottom','Both','None']} val={f.basket.paperFilter} onChange={v=>set('basket.paperFilter',v)}/></F>
-        <F label="Distribution"><Tog opts={['WDT','Blind Shaker',"Stockfleth's",'Palm']} val={f.basket.distribution} onChange={v=>set('basket.distribution',v)}/></F>
-      </div>
 
       {/* ── PRE-INFUSION ── */}
       <Sec title="Pre-Infusion"/>
