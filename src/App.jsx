@@ -9,7 +9,7 @@ function useWidth(){
 
 /* ── palette & globals ─────────────────────────────── */
 const BG="#100C08",SURF="#1A1410",S2="#241C14";
-const BR="#C8763A",BRL="#E8A050",GOLD="#E8C840";
+const BR="#D4A843",BRL="#EAC86A",GOLD="#E8C840";
 const TX="#F0E8D5",MT="#C4A06A",DIM="#5C4028",BD="#3C2C18";
 
 const CSS=`
