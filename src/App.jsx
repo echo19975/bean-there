@@ -18,7 +18,7 @@ const CSS=`
 @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:${BG};color:${TX};font-family:'Jost',sans-serif}
-.i{background:${S2};border:1px solid ${BD};color:${TX};font-family:'Jost',sans-serif;font-size:14px;font-weight:300;border-radius:3px;padding:10px 14px;outline:none;width:100%;transition:border-color .2s}
+.i{background:${S2};border:1px solid ${BD};color:${TX};font-family:'Jost',sans-serif;font-size:16px;font-weight:300;border-radius:3px;padding:12px 14px;outline:none;width:100%;transition:border-color .2s}
 .i:focus{border-color:${BR}} .i::placeholder{color:${DIM}}
 .rng{-webkit-appearance:none;appearance:none;height:3px;border-radius:2px;border:none;padding:0;width:100%;outline:none;cursor:pointer}
 .rng::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;border-radius:50%;background:${BR};border:2px solid ${BG};box-shadow:0 0 8px rgba(200,118,58,.4)}
@@ -57,7 +57,7 @@ const cColor=v=>r2h(mlrp(cStops,v/100));
 const kColor=v=>r2h(mlrp(kStops,v/100));
 
 /* ── tiny shared components ────────────────────────── */
-const Lbl=({t,sx})=><div style={{fontFamily:'Jost',fontWeight:300,fontSize:11,letterSpacing:'.12em',textTransform:'uppercase',color:MT,marginBottom:7,...sx}}>{t}</div>;
+const Lbl=({t,sx})=><div style={{fontFamily:'Jost',fontWeight:400,fontSize:12,letterSpacing:'.1em',textTransform:'uppercase',color:'#C4A882',marginBottom:8,...sx}}>{t}</div>;
 const Sec=({title})=>(
   <div style={{display:'flex',alignItems:'center',gap:12,margin:'28px 0 16px'}}>
     <div style={{width:3,height:18,background:BR,borderRadius:2,flexShrink:0}}/>
@@ -492,6 +492,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
   }:base);
   const[extrAdv,setExtrAdv]=useState(false);
   const[tastAdv,setTastAdv]=useState(false);
+  const mob=useWidth()<768;
   const set=(path,val)=>setF(x=>{const p=path.split('.');if(p.length===1)return{...x,[p[0]]:val};return{...x,[p[0]]:{...x[p[0]],[p[1]]:val}}});
 
   const brewRatio=(()=>{const d=+f.grind.dose,y=+f.extr.yield;return(d&&y)?(y/d).toFixed(2):'—'})();
@@ -518,10 +519,10 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
 
   return(
     <div style={{padding:'28px 36px',overflowY:'auto',height:'100%'}}>
-      <Row>
-        <F label="Date" flex="0 0 170px"><input type="date" className="i" value={f.date} onChange={e=>set('date',e.target.value)} style={{colorScheme:'dark'}}/></F>
+      <div style={{display:'flex',flexDirection:mob?'column':'row',gap:14}}>
+        <F label="Date" flex={mob?'1':'0 0 170px'}><input type="date" className="i" value={f.date} onChange={e=>set('date',e.target.value)} style={{colorScheme:'dark'}}/></F>
         <F label="What's up…"><input className="i" value={f.title} onChange={e=>set('title',e.target.value)} placeholder="Give this pull a title…"/></F>
-      </Row>
+      </div>
 
       {/* ── GRIND ── */}
       <Sec title="Grind"/>
@@ -780,28 +781,28 @@ function Journal({bean,entries,onSave,onBack,grinders,onUpdateBean,onDeleteEntry
   const showingContent=mob&&(panel==='new'||panel==='edit'||(panel==='list'&&selId));
 
   const BeanHeader=()=>(
-    <div style={{padding:'18px 18px 14px',borderBottom:`1px solid ${BD}`}}>
-      <button onClick={showingContent?()=>{setSelId(null);setPanel('list')}:onBack} style={{background:'none',border:'none',color:MT,cursor:'pointer',fontSize:17,padding:'0 0 7px',display:'block'}}>←</button>
-      <div style={{fontFamily:'Jost',fontWeight:600,fontSize:11,color:TX,letterSpacing:'.08em',textTransform:'uppercase'}}>{bean.brand}</div>
-      <div style={{fontFamily:'Jost',fontWeight:300,fontSize:11,color:MT,marginTop:2}}>{bean.name}</div>
-      <div style={{display:'flex',alignItems:'center',gap:8,marginTop:6,flexWrap:'wrap'}}>
-        {bean.roast&&<div style={{padding:'2px 8px',border:`1px solid ${BD}`,borderRadius:2,fontFamily:'Jost',fontWeight:300,fontSize:9,color:DIM,letterSpacing:'.1em',textTransform:'uppercase'}}>{bean.roast}</div>}
-        {bean.price&&<div style={{padding:'2px 8px',border:`1px solid ${BD}`,borderRadius:2,fontFamily:'DM Mono',fontSize:9,color:DIM}}>${bean.price}/100g</div>}
-        {bean.roastDate&&(()=>{const d=Math.floor((new Date()-new Date(bean.roastDate+'T00:00:00'))/86400000);return d>=0?<div style={{fontFamily:'DM Mono',fontSize:10,color:MT}}>{d}d</div>:null;})()}
-        <button onClick={()=>setEditingBean(true)} style={{background:'none',border:'none',fontFamily:'Jost',fontWeight:300,fontSize:10,color:MT,cursor:'pointer',letterSpacing:'.08em',textDecoration:'underline',padding:0,textUnderlineOffset:'2px'}}>Edit</button>
+    <div style={{padding:mob?'20px 20px 16px':'18px 18px 14px',borderBottom:`1px solid ${BD}`}}>
+      <button onClick={showingContent?()=>{setSelId(null);setPanel('list')}:onBack} style={{background:'none',border:'none',color:MT,cursor:'pointer',fontSize:mob?22:17,padding:'0 0 7px',display:'block'}}>←</button>
+      <div style={{fontFamily:'Jost',fontWeight:600,fontSize:mob?15:11,color:TX,letterSpacing:'.08em',textTransform:'uppercase'}}>{bean.brand}</div>
+      <div style={{fontFamily:'Jost',fontWeight:300,fontSize:mob?14:11,color:MT,marginTop:3}}>{bean.name}</div>
+      <div style={{display:'flex',alignItems:'center',gap:8,marginTop:8,flexWrap:'wrap'}}>
+        {bean.roast&&<div style={{padding:'3px 10px',border:`1px solid ${BD}`,borderRadius:2,fontFamily:'Jost',fontWeight:300,fontSize:mob?11:9,color:DIM,letterSpacing:'.1em',textTransform:'uppercase'}}>{bean.roast}</div>}
+        {bean.price&&<div style={{padding:'3px 10px',border:`1px solid ${BD}`,borderRadius:2,fontFamily:'DM Mono',fontSize:mob?11:9,color:DIM}}>${bean.price}/100g</div>}
+        {bean.roastDate&&(()=>{const d=Math.floor((new Date()-new Date(bean.roastDate+'T00:00:00'))/86400000);return d>=0?<div style={{fontFamily:'DM Mono',fontSize:mob?12:10,color:MT}}>{d}d</div>:null;})()}
+        <button onClick={()=>setEditingBean(true)} style={{background:'none',border:'none',fontFamily:'Jost',fontWeight:300,fontSize:mob?12:10,color:MT,cursor:'pointer',letterSpacing:'.08em',textDecoration:'underline',padding:0,textUnderlineOffset:'2px'}}>Edit</button>
       </div>
     </div>
   );
 
   const EntryList=()=>(
     <div style={{flex:1,overflowY:'auto'}}>
-      {sorted.length===0&&<div style={{padding:'24px 18px',fontFamily:'Jost',fontWeight:300,fontSize:12,color:DIM,textAlign:'center',lineHeight:1.7}}>No entries yet.<br/>Start your first pull.</div>}
+      {sorted.length===0&&<div style={{padding:'32px 20px',fontFamily:'Jost',fontWeight:300,fontSize:mob?15:12,color:DIM,textAlign:'center',lineHeight:1.7}}>No entries yet.<br/>Start your first pull.</div>}
       {sorted.map(e=>(
         <div key={e.id} className="er" onClick={()=>{setSelId(e.id);setPanel('list')}}
-          style={{padding:'12px 16px',borderBottom:`1px solid ${BD}`,background:selId===e.id&&!mob?S2:'transparent',borderLeft:e.isThisIt?`3px solid ${GOLD}`:`3px solid transparent`}}>
-          <div style={{fontFamily:'DM Mono',fontSize:9,color:DIM,marginBottom:3}}>{fdate(e.date)}</div>
-          <div style={{fontFamily:'Jost',fontWeight:300,fontSize:12,color:e.isThisIt?GOLD:TX,lineHeight:1.35}}>{e.isThisIt&&'★ '}{e.title||'Untitled session'}</div>
-          {e.tasting?.stars>0&&<div style={{marginTop:3,color:BR,fontSize:9}}>{'★'.repeat(e.tasting.stars)}</div>}
+          style={{padding:mob?'18px 20px':'12px 16px',borderBottom:`1px solid ${BD}`,background:selId===e.id&&!mob?S2:'transparent',borderLeft:e.isThisIt?`3px solid ${GOLD}`:`3px solid transparent`}}>
+          <div style={{fontFamily:'DM Mono',fontSize:mob?12:9,color:DIM,marginBottom:4}}>{fdate(e.date)}</div>
+          <div style={{fontFamily:'Jost',fontWeight:300,fontSize:mob?16:12,color:e.isThisIt?GOLD:TX,lineHeight:1.4}}>{e.isThisIt&&'★ '}{e.title||'Untitled session'}</div>
+          {e.tasting?.stars>0&&<div style={{marginTop:4,color:BR,fontSize:mob?13:9}}>{'★'.repeat(e.tasting.stars)}</div>}
         </div>
       ))}
     </div>
@@ -811,9 +812,9 @@ function Journal({bean,entries,onSave,onBack,grinders,onUpdateBean,onDeleteEntry
   if(mob){
     if(showingContent) return(
       <div style={{display:'flex',flexDirection:'column',height:'100vh',background:BG,overflow:'hidden'}}>
-        <div style={{borderBottom:`1px solid ${BD}`,padding:'12px 16px',display:'flex',alignItems:'center',gap:12,flexShrink:0}}>
-          <button onClick={()=>{setSelId(null);setPanel('list')}} style={{background:'none',border:'none',color:MT,cursor:'pointer',fontSize:17,padding:0,lineHeight:1}}>←</button>
-          <div style={{fontFamily:'Jost',fontWeight:600,fontSize:11,color:TX,letterSpacing:'.08em',textTransform:'uppercase'}}>{bean.brand} · {bean.name}</div>
+        <div style={{borderBottom:`1px solid ${BD}`,padding:'16px 20px',display:'flex',alignItems:'center',gap:12,flexShrink:0}}>
+          <button onClick={()=>{setSelId(null);setPanel('list')}} style={{background:'none',border:'none',color:MT,cursor:'pointer',fontSize:22,padding:0,lineHeight:1}}>←</button>
+          <div style={{fontFamily:'Jost',fontWeight:600,fontSize:14,color:TX,letterSpacing:'.06em',textTransform:'uppercase'}}>{bean.brand} · {bean.name}</div>
         </div>
         <div style={{flex:1,overflowY:'auto'}}>
           {(panel==='new'||panel==='edit')
@@ -830,12 +831,12 @@ function Journal({bean,entries,onSave,onBack,grinders,onUpdateBean,onDeleteEntry
     return(
       <div style={{display:'flex',flexDirection:'column',height:'100vh',background:BG,overflow:'hidden'}}>
         <BeanHeader/>
-        <div style={{padding:'10px 12px',borderBottom:`1px solid ${BD}`}}>
-          <button className="pb" onClick={()=>{setEditE(mkE());setPanel('new');setSelId(null)}} style={{width:'100%',padding:'9px 0',fontSize:10}}>+ New entry</button>
+        <div style={{padding:'12px 16px',borderBottom:`1px solid ${BD}`}}>
+          <button className="pb" onClick={()=>{setEditE(mkE());setPanel('new');setSelId(null)}} style={{width:'100%',padding:'14px 0',fontSize:13}}>+ NEW ENTRY</button>
         </div>
         <EntryList/>
-        <div style={{padding:12,borderTop:`1px solid ${BD}`,flexShrink:0}}>
-          <button className="gb" onClick={onBack} style={{fontSize:11}}>← All beans</button>
+        <div style={{padding:'12px 16px',borderTop:`1px solid ${BD}`,flexShrink:0}}>
+          <button className="gb" onClick={onBack} style={{fontSize:13,padding:'10px 20px'}}>← All beans</button>
         </div>
       </div>
     );
