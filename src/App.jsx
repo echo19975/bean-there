@@ -270,7 +270,7 @@ function AddBean({onSave,onBack,initial}){
         </F>
         {daysOffRoast!==null&&(
           <F label="Days Off Roast" flex="0 0 130px" minW={100}>
-            <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:18,color:BR,textAlign:'center',lineHeight:'1.5'}}>
+            <div style={{padding:'0 14px',minHeight:'48px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,display:'flex',alignItems:'center',fontFamily:'DM Mono',fontSize:18,color:BR,textAlign:'center'}}>
               {daysOffRoast}<span style={{fontSize:11,color:MT,marginLeft:4}}>days</span>
             </div>
           </F>
@@ -545,7 +545,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
           <Row mt={14} gap={14}>
             <F label="Dose (g)" flex="0 0 110px"><input type="number" step="0.1" className="i" value={f.grind.dose} onChange={e=>set('grind.dose',e.target.value)} placeholder="18.0"/></F>
             {beanAge!==null&&<F label="Bean Age at Shot" minW={120}>
-              <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
+              <div style={{padding:'0 14px',minHeight:'48px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,display:'flex',alignItems:'center',fontFamily:'DM Mono',fontSize:16,color:BR}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
             </F>}
           </Row>
         </>
@@ -555,7 +555,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
           <F label="Grind Setting" flex="0 0 155px"><input className="i" value={f.grind.grindSetting} onChange={e=>set('grind.grindSetting',e.target.value)} placeholder="e.g. 18 clicks"/></F>
           <F label="Dose (g)" flex="0 0 110px"><input type="number" step="0.1" className="i" value={f.grind.dose} onChange={e=>set('grind.dose',e.target.value)} placeholder="18.0"/></F>
           {beanAge!==null&&<F label="Bean Age at Shot" flex="0 0 180px" minW={0}>
-            <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
+            <div style={{padding:'0 14px',minHeight:'48px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,display:'flex',alignItems:'center',fontFamily:'DM Mono',fontSize:16,color:BR}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
           </F>}
         </Row>
       )}
@@ -600,7 +600,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
           <Row mt={14} gap={14}>
             <F label="Temp (°C)"><input type="number" step="0.5" className="i" value={f.extr.temp} onChange={e=>set('extr.temp',e.target.value)} placeholder="93.0"/></F>
             <F label="Brew Ratio">
-              <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>1 : {brewRatio}</div>
+              <div style={{padding:'0 14px',minHeight:'48px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,display:'flex',alignItems:'center',fontFamily:'DM Mono',fontSize:16,color:BR}}>1 : {brewRatio}</div>
             </F>
           </Row>
         </>
@@ -610,7 +610,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
           <F label="Time (s)" flex="0 0 110px"><input type="number" step="1" className="i" value={f.extr.time} onChange={e=>set('extr.time',e.target.value)} placeholder="28"/></F>
           <F label="Temp (°C)" flex="0 0 110px"><input type="number" step="0.5" className="i" value={f.extr.temp} onChange={e=>set('extr.temp',e.target.value)} placeholder="93.0"/></F>
           <F label="Brew Ratio" flex="0 0 110px" minW={100}>
-            <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>1 : {brewRatio}</div>
+            <div style={{padding:'0 14px',minHeight:'48px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,display:'flex',alignItems:'center',fontFamily:'DM Mono',fontSize:16,color:BR}}>1 : {brewRatio}</div>
           </F>
         </Row>
       )}
@@ -636,7 +636,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
             <F label="Brew Pressure (bar)" flex="0 0 155px"><input type="number" step="0.5" className="i" value={f.extr.brewPressure} onChange={e=>set('extr.brewPressure',e.target.value)} placeholder="6.0"/></F>
             <F label="First Drip (s)" flex="0 0 130px"><input type="number" step="0.5" className="i" value={f.preInf.firstDrip} onChange={e=>set('preInf.firstDrip',e.target.value)} placeholder="8"/></F>
             <F label="Flow Rate (g/s)" flex="0 0 130px" minW={100}>
-              <div style={{padding:'12px 14px',background:S2,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>{flowRate}</div>
+              <div style={{padding:'0 14px',minHeight:'48px',background:S2,border:`1px solid ${BD}`,borderRadius:3,display:'flex',alignItems:'center',fontFamily:'DM Mono',fontSize:16,color:BR}}>{flowRate}</div>
             </F>
           </Row>
           <div style={{marginTop:14}}>
