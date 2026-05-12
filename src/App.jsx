@@ -8,9 +8,9 @@ function useWidth(){
 }
 
 /* ── palette & globals ─────────────────────────────── */
-const BG="#1A1008",SURF="#261810",S2="#301E10";
+const BG="#201810",SURF="#2E2218",S2="#3A2C20";
 const BR="#C8763A",BRL="#E8A050",GOLD="#E8C840";
-const TX="#F2E8D9",MT="#A89070",DIM="#4A3020",BD="#3A2415";
+const TX="#F2EDE6",MT="#B8A488",DIM="#6E5C48",BD="#524030";
 
 const CSS=`
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
@@ -76,7 +76,7 @@ function Bean({brand,name,idx,isAdd,roast,onClick}){
   const roastColors={
     light: ['#C8824A','#A06030','#6E4018'],
     medium:['#8C4A18','#6A3010','#3E1A06'],
-    dark:  ['#4C2410','#2E1208','#1C0A04'],
+    dark:  ['#4A2E1C','#2E1A0E','#1C1008'],
   };
   const [ca,cb,cc2]=isAdd
     ?['#2A1A0E','#180E06','#0E0804']
@@ -308,7 +308,7 @@ function AddBean({onSave,onBack,initial}){
               <ToggleRow label="Roast Profile" opts={['Espresso','Filter','Omni']} val={f.roastProfile} onChange={v=>s('roastProfile',v)}/>
             </div>
             <div style={{marginTop:16}}>
-              <F label="Blend Compartment">
+              <F label="Blend Components">
                 <div>
                   {blendItems.map((item,i)=>(
                     <div key={i} style={{display:'flex',gap:8,marginBottom:8,alignItems:'center'}}>
@@ -333,7 +333,7 @@ function AddBean({onSave,onBack,initial}){
               </F>
             </Row>
             <div style={{marginTop:16}}>
-              <ToggleRow label="Storage Method" opts={['Airscape','Freezer','Vacuum tube','Original bag']} val={f.storage} onChange={v=>s('storage',v)}/>
+              <ToggleRow label="Storage Method" opts={['Airscape','Freezer','Vacuum Tube','Original Bag']} val={f.storage} onChange={v=>s('storage',v)}/>
             </div>
           </div>
         )}
@@ -527,7 +527,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
       {/* ── GRIND ── */}
       <Sec title="Grind"/>
       <Row>
-        <F label="Grinder"><AC value={f.grind.grinder} onChange={v=>set('grind.grinder',v)} opts={grinders} placeholder="e.g. Commandante"/></F>
+        <F label="Grinder"><AC value={f.grind.grinder} onChange={v=>set('grind.grinder',v)} opts={grinders} placeholder="e.g. Comandante"/></F>
         <F label="Grind Setting" flex="0 0 155px"><input className="i" value={f.grind.grindSetting} onChange={e=>set('grind.grindSetting',e.target.value)} placeholder="e.g. 18 clicks"/></F>
       </Row>
       <Row mt={14} gap={14}>
@@ -547,7 +547,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
       </Row>
       <Row mt={16} gap={14}>
         <F label="Paper Filter"><Tog opts={['Top','Bottom','Both','None']} val={f.basket.paperFilter} onChange={v=>set('basket.paperFilter',v)}/></F>
-        <F label="Distribution"><Tog opts={['WDT','Blind shaker','Palm']} val={f.basket.distribution} onChange={v=>set('basket.distribution',v)}/></F>
+        <F label="Distribution"><Tog opts={['WDT','Blind Shaker',"Stockfleth's",'Palm']} val={f.basket.distribution} onChange={v=>set('basket.distribution',v)}/></F>
       </Row>
 
       {/* ── PRE-INFUSION ── */}
@@ -624,6 +624,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
           <span style={{fontSize:9}}>{tastAdv?'▲':'▼'}</span> Advanced
         </button>
         {tastAdv&&<div style={{marginTop:12,padding:'16px 18px',border:`1px solid ${BD}`,borderRadius:4,background:SURF,animation:'fadein .2s ease'}}>
+          <Lbl t="Flavor Notes" sx={{marginBottom:14}}/>
           {[['chocolate','Chocolate'],['orangePeel','Orange Peel'],['caramel','Caramel'],['almond','Almond']].map(([key,label])=>(
             <Sld key={key} label={label} value={f.tasting[key]??5} onChange={v=>set(`tasting.${key}`,v)}/>
           ))}
