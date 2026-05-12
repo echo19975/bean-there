@@ -520,7 +520,9 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
   return(
     <div style={{padding:mob?'20px 16px':'28px 36px',overflowY:'auto',overflowX:'hidden',height:'100%',maxWidth:'100%'}}>
       <div style={{display:'flex',flexDirection:mob?'column':'row',gap:14}}>
-        <F label="Date" flex={mob?'1':'0 0 170px'}><input type="date" className="i" value={f.date} onChange={e=>set('date',e.target.value)} style={{colorScheme:'dark'}}/></F>
+        <F label="Date" flex={mob?'0 0 auto':'0 0 170px'} minW={0}>
+          <input type="date" className="i" value={f.date} onChange={e=>set('date',e.target.value)} style={{colorScheme:'dark',maxWidth:mob?180:'100%'}}/>
+        </F>
         <F label="What's up…"><input className="i" value={f.title} onChange={e=>set('title',e.target.value)} placeholder="Give this pull a title…"/></F>
       </div>
 
@@ -545,10 +547,10 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
       <Row mt={10} gap={20} sx={{alignItems:'center'}}>
         <Chk val={f.basket.puckScreen} onChange={()=>set('basket.puckScreen',!f.basket.puckScreen)} label="Puck screen"/>
       </Row>
-      <Row mt={16} gap={14}>
+      <div style={{display:'flex',flexDirection:mob?'column':'row',gap:14,marginTop:16}}>
         <F label="Paper Filter"><Tog opts={['Top','Bottom','Both','None']} val={f.basket.paperFilter} onChange={v=>set('basket.paperFilter',v)}/></F>
         <F label="Distribution"><Tog opts={['WDT','Blind Shaker',"Stockfleth's",'Palm']} val={f.basket.distribution} onChange={v=>set('basket.distribution',v)}/></F>
-      </Row>
+      </div>
 
       {/* ── PRE-INFUSION ── */}
       <Sec title="Pre-Infusion"/>
