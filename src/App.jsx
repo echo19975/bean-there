@@ -253,7 +253,7 @@ function AddBean({onSave,onBack,initial}){
         <F label="Roast Level">
           <div style={{display:'flex'}}>
             {['light','medium','dark'].map((l,i)=>(
-              <button key={l} onClick={()=>s('roast',l)} style={{flex:1,padding:'10px 0',fontFamily:'Jost',fontWeight:f.roast===l?500:300,fontSize:13,cursor:'pointer',border:`1px solid ${BD}`,borderLeft:i>0?'none':`1px solid ${BD}`,background:f.roast===l?BR:S2,color:f.roast===l?BG:MT,borderRadius:i===0?'3px 0 0 3px':i===2?'0 3px 3px 0':'0',textTransform:'capitalize',transition:'all .15s'}}>{l}</button>
+              <button key={l} onClick={()=>s('roast',l)} style={{flex:1,padding:'12px 0',fontFamily:'Jost',fontWeight:f.roast===l?500:300,fontSize:13,cursor:'pointer',border:`1px solid ${BD}`,borderLeft:i>0?'none':`1px solid ${BD}`,background:f.roast===l?BR:S2,color:f.roast===l?BG:MT,borderRadius:i===0?'3px 0 0 3px':i===2?'0 3px 3px 0':'0',textTransform:'capitalize',transition:'all .15s'}}>{l}</button>
             ))}
           </div>
         </F>
@@ -510,7 +510,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
   const Tog=({label,opts,val,onChange})=>(
     <div><Lbl t={label}/>
       <div style={{display:'flex'}}>
-        {opts.map((o,i)=><button key={o} onClick={()=>onChange(val===o?'':o)} style={{flex:1,padding:'9px 6px',fontFamily:'Jost',fontWeight:val===o?500:300,fontSize:11,cursor:'pointer',border:`1px solid ${BD}`,borderLeft:i>0?'none':`1px solid ${BD}`,background:val===o?BR:S2,color:val===o?BG:MT,borderRadius:i===0?'3px 0 0 3px':i===opts.length-1?'0 3px 3px 0':'0',transition:'all .15s',whiteSpace:'nowrap'}}>{o}</button>)}
+        {opts.map((o,i)=><button key={o} onClick={()=>onChange(val===o?'':o)} style={{flex:1,padding:'12px 6px',fontFamily:'Jost',fontWeight:val===o?500:300,fontSize:11,cursor:'pointer',border:`1px solid ${BD}`,borderLeft:i>0?'none':`1px solid ${BD}`,background:val===o?BR:S2,color:val===o?BG:MT,borderRadius:i===0?'3px 0 0 3px':i===opts.length-1?'0 3px 3px 0':'0',transition:'all .15s',whiteSpace:'nowrap'}}>{o}</button>)}
       </div>
     </div>
   );
