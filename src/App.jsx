@@ -249,7 +249,7 @@ function AddBean({onSave,onBack,initial}){
         <input className="i" value={f.region} onChange={e=>s('region',e.target.value)} placeholder="e.g. Ethiopia, Yirgacheffe"/>
       </div>
 
-      <Row mt={18}>
+      <div style={{display:'flex',flexDirection:mob?'column':'row',gap:14,marginTop:18,flexWrap:'wrap'}}>
         <F label="Roast Level">
           <div style={{display:'flex'}}>
             {['light','medium','dark'].map((l,i)=>(
@@ -257,17 +257,17 @@ function AddBean({onSave,onBack,initial}){
             ))}
           </div>
         </F>
-        <F label="Roast Date" minW={160}>
-          <input type="date" className="i" value={f.roastDate} onChange={e=>s('roastDate',e.target.value)} style={{colorScheme:'dark'}}/>
+        <F label="Roast Date" minW={mob?0:160} flex={mob?'0 0 auto':1}>
+          <input type="date" className="i" value={f.roastDate} onChange={e=>s('roastDate',e.target.value)} style={{colorScheme:'dark',maxWidth:mob?180:'100%'}}/>
         </F>
         {daysOffRoast!==null&&(
           <F label="Days Off Roast" flex="0 0 130px" minW={100}>
-            <div style={{padding:'10px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:18,color:BR,textAlign:'center'}}>
+            <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:18,color:BR,textAlign:'center',lineHeight:'1.5'}}>
               {daysOffRoast}<span style={{fontSize:11,color:MT,marginLeft:4}}>days</span>
             </div>
           </F>
         )}
-      </Row>
+      </div>
 
       <Row mt={16}>
         <F label="Bag Size" flex="0 0 200px" minW={160}>
