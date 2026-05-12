@@ -639,15 +639,17 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
               <div style={{padding:'0 14px',minHeight:'48px',background:S2,border:`1px solid ${BD}`,borderRadius:3,display:'flex',alignItems:'center',fontFamily:'DM Mono',fontSize:16,color:BR}}>{flowRate}</div>
             </F>
           </Row>
-          <div style={{marginTop:14}}>
-            <Lbl t="Profile Type"/>
-            <select className="i" value={f.extr.profileType} onChange={e=>set('extr.profileType',e.target.value)} style={{colorScheme:'dark'}}>
-              <option value="">Select…</option>
-              {['Flat 9 bar','Declining pressure','Lever','Turbo','Blooming espresso'].map(o=><option key={o}>{o}</option>)}
-            </select>
-          </div>
-          <div style={{marginTop:14}}>
-            <Chk val={f.extr.channeling} onChange={()=>set('extr.channeling',!f.extr.channeling)} label="Channeling observed"/>
+          <div style={{display:'flex',alignItems:'flex-end',gap:20,marginTop:14,flexWrap:'wrap'}}>
+            <div style={{flex:1,minWidth:mob?'100%':200}}>
+              <Lbl t="Profile Type"/>
+              <select className="i" value={f.extr.profileType} onChange={e=>set('extr.profileType',e.target.value)} style={{colorScheme:'dark'}}>
+                <option value="">Select…</option>
+                {['Flat 9 bar','Declining pressure','Lever','Turbo','Blooming espresso'].map(o=><option key={o}>{o}</option>)}
+              </select>
+            </div>
+            <div style={{paddingBottom:14,flexShrink:0}}>
+              <Chk val={f.extr.channeling} onChange={()=>set('extr.channeling',!f.extr.channeling)} label="Channeling observed"/>
+            </div>
           </div>
         </div>}
       </div>
