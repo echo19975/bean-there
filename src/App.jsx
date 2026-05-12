@@ -148,6 +148,7 @@ function Welcome({beans,onAdd,onSelect,onDeleteBean,onExport,onImport}){
         </div>}
       </div>
       <div style={{margin:divPad,height:1,background:`linear-gradient(to right,${BD},transparent)`}}/>
+      {beans.length>0&&<div style={{padding:mob?'0 24px 16px':'0 60px 20px',fontFamily:'Jost',fontWeight:300,fontSize:12,color:DIM,letterSpacing:'.06em'}}>Tap a bean to start your journal</div>}
       <div style={{overflowX:'auto',padding:beansPad,display:'flex',alignItems:'center'}}>
         <div style={{display:'flex',alignItems:'center',paddingBottom:4,flexWrap:mob?'wrap':'nowrap',gap:mob?'16px 0':0}}>
           {visible.map((b,i)=>(
@@ -160,7 +161,6 @@ function Welcome({beans,onAdd,onSelect,onDeleteBean,onExport,onImport}){
         </div>
       </div>
       {beans.length===0&&<div style={{textAlign:'center',paddingBottom:40,fontFamily:'Cormorant Garamond',fontStyle:'italic',fontSize:15,color:DIM}}>Click the bean to add your first coffee</div>}
-      {beans.length>0&&<div style={{textAlign:'center',paddingBottom:24,fontFamily:'Jost',fontWeight:300,fontSize:12,color:DIM,letterSpacing:'.06em'}}>Tap a bean to start your journal</div>}
       {search&&visible.length===0&&<div style={{textAlign:'center',paddingTop:20,fontFamily:'Cormorant Garamond',fontStyle:'italic',fontSize:15,color:DIM}}>No beans match "{search}"</div>}
       {confirmBean&&(
         <div style={{position:'fixed',bottom:80,right:mob?16:32,left:mob?16:'auto',background:SURF,border:`1px solid rgba(200,80,60,0.4)`,borderRadius:6,padding:'16px 20px',zIndex:100,animation:'fadein .15s ease'}}>
