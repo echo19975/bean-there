@@ -408,9 +408,8 @@ function Shot({ratio,cVal,kVal,onRatio,onCVal,onKVal}){
       <div style={{display:'flex',gap:20,alignItems:'flex-start'}}>
         <div style={{flexShrink:0}}>
           <svg ref={ref} width={VW} height={VH} viewBox={`0 0 ${VW} ${VH}`}
-            style={{display:'block',cursor:drag?'ns-resize':'pointer'}}
-            onPointerDown={onPD} onPointerMove={onPM} onPointerUp={onPU} onClick={onCk}
-            onTouchStart={e=>e.preventDefault()}>
+            style={{display:'block',cursor:drag?'ns-resize':'pointer',touchAction:'none'}}
+            onPointerDown={onPD} onPointerMove={onPM} onPointerUp={onPU} onClick={onCk}>
             <defs><clipPath id="sc"><path d={gp}/></clipPath></defs>
             {/* liquid */}
             <rect x="0" y="0" width={VW} height={VH} fill={kc} clipPath="url(#sc)"/>
