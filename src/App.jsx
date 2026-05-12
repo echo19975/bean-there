@@ -117,7 +117,7 @@ function Bean({brand,name,idx,isAdd,roast,onClick}){
 }
 
 /* ── Welcome page ──────────────────────────────────── */
-function Welcome({beans,onAdd,onSelect,onDeleteBean}){
+function Welcome({beans,onAdd,onSelect,onDeleteBean,onExport,onImport}){
   const[delMode,setDelMode]=useState(false);
   const[confirmBean,setConfirmBean]=useState(null);
   const[search,setSearch]=useState('');
@@ -160,6 +160,7 @@ function Welcome({beans,onAdd,onSelect,onDeleteBean}){
         </div>
       </div>
       {beans.length===0&&<div style={{textAlign:'center',paddingBottom:40,fontFamily:'Cormorant Garamond',fontStyle:'italic',fontSize:15,color:DIM}}>Click the bean to add your first coffee</div>}
+      {beans.length>0&&<div style={{textAlign:'center',paddingBottom:24,fontFamily:'Jost',fontWeight:300,fontSize:12,color:DIM,letterSpacing:'.06em'}}>Tap a bean to start your journal</div>}
       {search&&visible.length===0&&<div style={{textAlign:'center',paddingTop:20,fontFamily:'Cormorant Garamond',fontStyle:'italic',fontSize:15,color:DIM}}>No beans match "{search}"</div>}
       {confirmBean&&(
         <div style={{position:'fixed',bottom:80,right:mob?16:32,left:mob?16:'auto',background:SURF,border:`1px solid rgba(200,80,60,0.4)`,borderRadius:6,padding:'16px 20px',zIndex:100,animation:'fadein .15s ease'}}>
@@ -172,6 +173,13 @@ function Welcome({beans,onAdd,onSelect,onDeleteBean}){
           </div>
         </div>
       )}
+      {/* bottom buttons */}
+      <div style={{position:'fixed',bottom:28,left:mob?16:32,display:'flex',gap:10}}>
+        <button onClick={onExport} style={{fontFamily:'Jost',fontWeight:300,fontSize:11,letterSpacing:'.08em',color:MT,background:BG,border:`1px solid ${BD}`,borderRadius:3,padding:'8px 16px',cursor:'pointer'}}>Export</button>
+        <label style={{fontFamily:'Jost',fontWeight:300,fontSize:11,letterSpacing:'.08em',color:MT,background:BG,border:`1px solid ${BD}`,borderRadius:3,padding:'8px 16px',cursor:'pointer',display:'inline-block'}}>
+          Import<input type="file" accept=".json" onChange={onImport} style={{display:'none'}}/>
+        </label>
+      </div>
       {beans.length>0&&(
         <div style={{position:'fixed',bottom:28,right:mob?16:32,display:'flex',gap:10}}>
           {delMode&&<button className="gb" onClick={()=>{setDelMode(false);setConfirmBean(null)}} style={{fontSize:11,padding:'8px 16px'}}>Cancel</button>}
@@ -903,6 +911,29 @@ export default function App(){
 
   const grinders=[...new Set(Object.values(entries).flat().map(e=>e.grind?.grinder).filter(Boolean))];
 
+  const exportData=()=>{
+    const data=JSON.stringify({beans,entries},null,2);
+    const blob=new Blob([data],{type:'application/json'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a');
+    a.href=url;a.download=`bean-there-backup-${today()}.json`;
+    a.click();URL.revokeObjectURL(url);
+  };
+  const importData=e=>{
+    const file=e.target.files[0];if(!file)return;
+    const r=new FileReader();
+    r.onload=ev=>{
+      try{
+        const d=JSON.parse(ev.target.result);
+        if(!d.beans||!d.entries){alert('Invalid backup file.');return;}
+        setBeans(d.beans);setEntries(d.entries);
+        ss('esp-beans',d.beans);ss('esp-entries',d.entries);
+        alert('Import successful!');
+      }catch{alert('Could not read file.');}
+    };
+    r.readAsText(file);
+    e.target.value='';
+  };
   const saveBean=b=>{const next=[...beans,b];setBeans(next);ss('esp-beans',next);setPage('welcome')};
   const updateBean=b=>{const next=beans.map(x=>x.id===b.id?b:x);setBeans(next);ss('esp-beans',next);setBean(b)};
   const deleteBean=id=>{const nb=beans.filter(b=>b.id!==id);const ne={...entries};delete ne[id];setBeans(nb);setEntries(ne);ss('esp-beans',nb);ss('esp-entries',ne)};
@@ -923,5 +954,5 @@ export default function App(){
   );
   if(page==='addBean') return <AddBean onSave={saveBean} onBack={()=>setPage('welcome')}/>;
   if(page==='journal'&&bean) return <Journal bean={bean} entries={entries[bean.id]||[]} onSave={saveEntry} onBack={()=>setPage('welcome')} grinders={grinders} onUpdateBean={updateBean} onDeleteEntry={deleteEntry}/>;
-  return <Welcome beans={beans} onAdd={()=>setPage('addBean')} onSelect={b=>{setBean(b);setPage('journal')}} onDeleteBean={deleteBean}/>;
+  return <Welcome beans={beans} onAdd={()=>setPage('addBean')} onSelect={b=>{setBean(b);setPage('journal')}} onDeleteBean={deleteBean} onExport={exportData} onImport={importData}/>;
 }
