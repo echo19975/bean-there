@@ -535,7 +535,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
       <Row mt={14} gap={14}>
         <F label="Dose (g)" flex="0 0 110px"><input type="number" step="0.1" className="i" value={f.grind.dose} onChange={e=>set('grind.dose',e.target.value)} placeholder="18.0"/></F>
         {beanAge!==null&&<F label="Bean Age at Shot" flex="0 0 150px" minW={120}>
-          <div style={{padding:'10px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:15,color:BR}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
+          <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:15,color:BR,lineHeight:'1.2'}}>{beanAge}<span style={{fontSize:11,color:MT,marginLeft:4}}>days off roast</span></div>
         </F>}
       </Row>
 
@@ -570,14 +570,29 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
       <Row>
         <F label="Espresso Maker"><input className="i" value={f.extr.machine} onChange={e=>set('extr.machine',e.target.value)} placeholder="e.g. La Marzocco Linea Mini"/></F>
       </Row>
-      <Row mt={14}>
-        <F label="Yield (g)" flex="0 0 110px"><input type="number" step="0.1" className="i" value={f.extr.yield} onChange={e=>set('extr.yield',e.target.value)} placeholder="36.0"/></F>
-        <F label="Time (s)" flex="0 0 110px"><input type="number" step="1" className="i" value={f.extr.time} onChange={e=>set('extr.time',e.target.value)} placeholder="28"/></F>
-        <F label="Temp (°C)" flex="0 0 110px"><input type="number" step="0.5" className="i" value={f.extr.temp} onChange={e=>set('extr.temp',e.target.value)} placeholder="93.0"/></F>
-        <F label="Brew Ratio" flex="0 0 110px" minW={100}>
-          <div style={{padding:'10px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:15,color:BR}}>1 : {brewRatio}</div>
-        </F>
-      </Row>
+      {mob ? (
+        <>
+          <Row mt={14} gap={14}>
+            <F label="Yield (g)"><input type="number" step="0.1" className="i" value={f.extr.yield} onChange={e=>set('extr.yield',e.target.value)} placeholder="36.0"/></F>
+            <F label="Time (s)"><input type="number" step="1" className="i" value={f.extr.time} onChange={e=>set('extr.time',e.target.value)} placeholder="28"/></F>
+          </Row>
+          <Row mt={14} gap={14}>
+            <F label="Temp (°C)"><input type="number" step="0.5" className="i" value={f.extr.temp} onChange={e=>set('extr.temp',e.target.value)} placeholder="93.0"/></F>
+            <F label="Brew Ratio">
+              <div style={{padding:'12px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:15,color:BR,lineHeight:'1.2'}}>1 : {brewRatio}</div>
+            </F>
+          </Row>
+        </>
+      ) : (
+        <Row mt={14}>
+          <F label="Yield (g)" flex="0 0 110px"><input type="number" step="0.1" className="i" value={f.extr.yield} onChange={e=>set('extr.yield',e.target.value)} placeholder="36.0"/></F>
+          <F label="Time (s)" flex="0 0 110px"><input type="number" step="1" className="i" value={f.extr.time} onChange={e=>set('extr.time',e.target.value)} placeholder="28"/></F>
+          <F label="Temp (°C)" flex="0 0 110px"><input type="number" step="0.5" className="i" value={f.extr.temp} onChange={e=>set('extr.temp',e.target.value)} placeholder="93.0"/></F>
+          <F label="Brew Ratio" flex="0 0 110px" minW={100}>
+            <div style={{padding:'10px 14px',background:SURF,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:15,color:BR}}>1 : {brewRatio}</div>
+          </F>
+        </Row>
+      )}
       {/* extraction advanced */}
       <div style={{marginTop:16}}>
         <button onClick={()=>setExtrAdv(x=>!x)} style={{fontFamily:'Jost',fontWeight:300,fontSize:11,color:extrAdv?BR:MT,background:'none',border:`1px solid ${extrAdv?BR:BD}`,borderRadius:3,padding:'7px 16px',cursor:'pointer',transition:'all .2s',display:'flex',alignItems:'center',gap:8,letterSpacing:'.08em',textTransform:'uppercase'}}>
