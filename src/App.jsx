@@ -366,13 +366,13 @@ function AddBean({onSave,onBack,initial}){
 }
 
 /* ── Stars rating ──────────────────────────────────── */
-function Stars({value,onChange}){
+function Stars({value,onChange,size=28}){
   const[hov,setHov]=useState(0);
   return(
     <div style={{display:'flex',gap:6}}>
       {[1,2,3,4,5].map(s=>{
         const on=s<=(hov||value);
-        return <span key={s} style={{fontSize:28,cursor:'pointer',color:on?BR:BD,transition:'color .15s',display:'inline-block'}}
+        return <span key={s} style={{fontSize:size,cursor:'pointer',color:on?BR:BD,transition:'color .15s',display:'inline-block'}}
           onMouseEnter={()=>setHov(s)} onMouseLeave={()=>setHov(0)} onClick={()=>onChange(s===value?0:s)}>★</span>
       })}
     </div>
@@ -627,7 +627,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
                 {['TWW','Tap','Bottled','Rao-Perger'].map(o=><option key={o}>{o}</option>)}
               </select>
             </F>
-            <F label="Water Temp at Group (°C)">
+            <F label="Group Temp (°C)">
               <input type="number" step="0.5" className="i" value={f.extr.waterTemp} onChange={e=>set('extr.waterTemp',e.target.value)} placeholder="93.0"/>
             </F>
           </Row>
@@ -677,12 +677,14 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
         <Shot ratio={f.tasting.ratio} cVal={f.tasting.cVal} kVal={f.tasting.kVal}
           onRatio={v=>set('tasting.ratio',v)} onCVal={v=>set('tasting.cVal',v)} onKVal={v=>set('tasting.kVal',v)}/>
       </div>
-      <div style={{marginBottom:20}}><Lbl t="Overall rating" sx={{marginBottom:10}}/><Stars value={f.tasting.stars} onChange={v=>set('tasting.stars',v)}/></div>
-      <div style={{marginBottom:20}}><Lbl t="Tasting Notes"/>
-        <textarea className="i" rows="2" value={f.tasting.tastingNotes} onChange={e=>set('tasting.tastingNotes',e.target.value)} placeholder="e.g. Dark cherry, brown sugar, mild citrus acidity…" style={{resize:'vertical'}}/>
-      </div>
-      <div style={{marginBottom:20}}><Lbl t="Finish / Aftertaste"/>
-        <textarea className="i" rows="2" value={f.tasting.finish} onChange={e=>set('tasting.finish',e.target.value)} placeholder="e.g. Long, clean finish with lingering sweetness…" style={{resize:'vertical'}}/>
+      <div style={{marginBottom:20,textAlign:'center'}}><Lbl t="Overall rating" sx={{marginBottom:12,textAlign:'center'}}/><div style={{display:'flex',justifyContent:'center'}}><Stars value={f.tasting.stars} onChange={v=>set('tasting.stars',v)} size={36}/></div></div>
+      <div style={{display:'flex',flexDirection:mob?'column':'row',gap:14,marginBottom:20}}>
+        <div style={{flex:1}}><Lbl t="Tasting Notes"/>
+          <textarea className="i" rows="2" value={f.tasting.tastingNotes} onChange={e=>set('tasting.tastingNotes',e.target.value)} placeholder="e.g. Dark cherry, brown sugar, mild citrus acidity…" style={{resize:'vertical'}}/>
+        </div>
+        <div style={{flex:1}}><Lbl t="Finish / Aftertaste"/>
+          <textarea className="i" rows="2" value={f.tasting.finish} onChange={e=>set('tasting.finish',e.target.value)} placeholder="e.g. Long, clean finish with lingering sweetness…" style={{resize:'vertical'}}/>
+        </div>
       </div>
       <div style={{marginBottom:20}}><Lbl t="More to add on…"/>
         <textarea className="i" rows="2" value={f.tasting.notes} onChange={e=>set('tasting.notes',e.target.value)} placeholder="Thoughts, comparisons, tweaks for next time…" style={{resize:'vertical'}}/>
