@@ -8,16 +8,16 @@ function useWidth(){
 }
 
 /* ── palette & globals ─────────────────────────────── */
-const BG="#201810",SURF="#2E2218",S2="#3A2C20";
+const BG="#100C08",SURF="#1A1410",S2="#241C14";
 const BR="#C8763A",BRL="#E8A050",GOLD="#E8C840";
-const TX="#F2EDE6",MT="#B8A488",DIM="#6E5C48",BD="#524030";
+const TX="#F0E8D5",MT="#C4A06A",DIM="#5C4028",BD="#3C2C18";
 
 const CSS=`
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Jost:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap');
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:${BG};color:${TX};font-family:'Jost',sans-serif}
+body{background:${BG};color:${TX};font-family:'Jost',sans-serif;overflow-x:hidden}
 .i{background:${S2};border:1px solid ${BD};color:${TX};font-family:'Jost',sans-serif;font-size:16px;font-weight:300;border-radius:3px;padding:12px 14px;outline:none;width:100%;transition:border-color .2s}
 .i:focus{border-color:${BR}} .i::placeholder{color:${DIM}}
 .rng{-webkit-appearance:none;appearance:none;height:3px;border-radius:2px;border:none;padding:0;width:100%;outline:none;cursor:pointer}
@@ -518,7 +518,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
   const photo=e=>{const file=e.target.files[0];if(!file)return;const r=new FileReader();r.onload=ev=>set('tasting.photo',ev.target.result);r.readAsDataURL(file)};
 
   return(
-    <div style={{padding:'28px 36px',overflowY:'auto',height:'100%'}}>
+    <div style={{padding:mob?'20px 16px':'28px 36px',overflowY:'auto',overflowX:'hidden',height:'100%',maxWidth:'100%'}}>
       <div style={{display:'flex',flexDirection:mob?'column':'row',gap:14}}>
         <F label="Date" flex={mob?'1':'0 0 170px'}><input type="date" className="i" value={f.date} onChange={e=>set('date',e.target.value)} style={{colorScheme:'dark'}}/></F>
         <F label="What's up…"><input className="i" value={f.title} onChange={e=>set('title',e.target.value)} placeholder="Give this pull a title…"/></F>
