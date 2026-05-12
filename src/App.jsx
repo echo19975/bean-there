@@ -636,7 +636,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
             <F label="Brew Pressure (bar)" flex="0 0 155px"><input type="number" step="0.5" className="i" value={f.extr.brewPressure} onChange={e=>set('extr.brewPressure',e.target.value)} placeholder="6.0"/></F>
             <F label="First Drip (s)" flex="0 0 130px"><input type="number" step="0.5" className="i" value={f.preInf.firstDrip} onChange={e=>set('preInf.firstDrip',e.target.value)} placeholder="8"/></F>
             <F label="Flow Rate (g/s)" flex="0 0 130px" minW={100}>
-              <div style={{padding:'10px 14px',background:S2,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:15,color:BR}}>{flowRate}</div>
+              <div style={{padding:'12px 14px',background:S2,border:`1px solid ${BD}`,borderRadius:3,fontFamily:'DM Mono',fontSize:16,color:BR,lineHeight:'1.5'}}>{flowRate}</div>
             </F>
           </Row>
           <div style={{marginTop:14}}>
