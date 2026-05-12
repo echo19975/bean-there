@@ -409,7 +409,8 @@ function Shot({ratio,cVal,kVal,onRatio,onCVal,onKVal}){
         <div style={{flexShrink:0}}>
           <svg ref={ref} width={VW} height={VH} viewBox={`0 0 ${VW} ${VH}`}
             style={{display:'block',cursor:drag?'ns-resize':'pointer'}}
-            onPointerDown={onPD} onPointerMove={onPM} onPointerUp={onPU} onClick={onCk}>
+            onPointerDown={onPD} onPointerMove={onPM} onPointerUp={onPU} onClick={onCk}
+            onTouchStart={e=>e.preventDefault()}>
             <defs><clipPath id="sc"><path d={gp}/></clipPath></defs>
             {/* liquid */}
             <rect x="0" y="0" width={VW} height={VH} fill={kc} clipPath="url(#sc)"/>
@@ -629,7 +630,7 @@ function EForm({init,onSave,onCancel,grinders,beanRoastDate}){
           ))}
         </div>}
       </div>
-      <div style={{padding:18,background:SURF,border:`1px solid ${BD}`,borderRadius:4,marginBottom:20}}>
+      <div style={{padding:18,background:SURF,border:`1px solid ${BD}`,borderRadius:4,marginBottom:20,userSelect:'none',WebkitUserSelect:'none'}}>
         <Lbl t="Shot appearance" sx={{marginBottom:14}}/>
         <Shot ratio={f.tasting.ratio} cVal={f.tasting.cVal} kVal={f.tasting.kVal}
           onRatio={v=>set('tasting.ratio',v)} onCVal={v=>set('tasting.cVal',v)} onKVal={v=>set('tasting.kVal',v)}/>
